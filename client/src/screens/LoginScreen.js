@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, TextInput, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, TextInput, Text, Button, Alert, Linking} from 'react-native';
 
 //This is setup fpr login screen;
 const LoginScreen = () => {
@@ -21,9 +21,20 @@ const LoginScreen = () => {
             onChangeText={onChangePassword}
             value={password}
             placeholder="Password"
-            // keyboardType="numeric"
+            secureTextEntry={true}
           />
+
+          <Button
+            onPress={() => Alert.alert('Simple Button pressed')}
+            style={styles.loginBtn}
+            title="LOGIN"
+            ></Button>
+
+          <SafeAreaView> 
+            <Text onPress={() => Linking.openURL('http://google.com')}> Forget your password?</Text>
+          </SafeAreaView>
         </SafeAreaView>
+        
       );
     };
 
@@ -35,6 +46,9 @@ const LoginScreen = () => {
         borderRadius: 5,
         backgroundColor: "#ededed",
         padding: 10
+      },
+      loginBtn: {
+        color:"#841584"
       }
     });
 
