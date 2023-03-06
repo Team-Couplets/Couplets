@@ -1,0 +1,27 @@
+{
+  "name": "coupletdatingappserver",
+  "version": "1.0.0",
+  "description": "couplet dating app backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Couplets/Couplets.git"
+  },
+  "author": "TeamCouplet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Team-Couplets/Couplets/issues"
+  },
+  "homepage": "https://github.com/Team-Couplets/Couplets#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
