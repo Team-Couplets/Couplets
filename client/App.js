@@ -81,6 +81,7 @@ export default function App() {
 
   //rendering the app based on authenication
   return (
+    
     <View style={styles.container}>
       {
         appleAuthAvailable 
@@ -89,6 +90,7 @@ export default function App() {
       }
       <StatusBar style="auto" />
     </View>
+    
   );
 }
 
