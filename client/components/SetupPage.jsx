@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button, Alert} from "react-native";
 
 //This is the setup for sign up screen
-export default function SetupScreen () {
+export default function SetupPage () {
     const [penName, onChangePenName] = React.useState('');
     const [firstName, onChangeFirstName] = React.useState('');
     const [lastName, onChangeLastName] = React.useState('');
@@ -17,7 +17,7 @@ export default function SetupScreen () {
         location: location,
         bio: bio
       }
-      console.log('form body', formBody);
+      console.log('formBody', formBody);
       //send the form information to server at the following url
       await fetch('http://localhost:3000/api/user/setup', {
         method: 'POST',

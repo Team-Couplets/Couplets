@@ -2,18 +2,18 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, TextInput, Text, Button, Alert, Linking} from 'react-native';
 
 //This is setup fpr login screen;
-const LoginScreen = () => {
-    const [username, onChangeUsername] = React.useState('');
+const LoginPage = () => {
+    const [email, onChangeEmail] = React.useState('');
     const [password, onChangePassword] = React.useState('');
 
     return (
         <SafeAreaView>
-          <Text>Login</Text>
+          <Text>User Login</Text>
           <TextInput
             style={styles.inputBox}
-            onChangeText={onChangeUsername}
-            value={username}
-            placeholder="Username"
+            onChangeText={onChangeEmail}
+            value={email}
+            placeholder="Email"
           />
           
           <TextInput
@@ -53,5 +53,5 @@ const LoginScreen = () => {
     });
 
 
-export default LoginScreen;
+export default LoginPage;
 
