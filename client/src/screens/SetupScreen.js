@@ -9,7 +9,7 @@ export default function SetupScreen () {
     const [location, onChangeLocation] = React.useState('');
     const [bio, onChangeBio] = React.useState('');
 
-    const submitForm = () => {
+    const submitForm = async () => {
       const formBody = {
         penName: penName,
         firstName: firstName,
@@ -19,7 +19,7 @@ export default function SetupScreen () {
       }
       console.log('form body', formBody);
       //send the form information to server at the following url
-      fetch('http://localhost:3000/api/user/setup', {
+      await fetch('http://localhost:3000/api/user/setup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ export default function SetupScreen () {
 
         <Button type="Sumbit" onPress={submitForm}
             style={styles.setupBtn}
-            title="LOOKS GOOD!"></Button>
+            title="LOOKS GOOD, SAVE!"></Button>
         
       </ScrollView>
   </SafeAreaView>
