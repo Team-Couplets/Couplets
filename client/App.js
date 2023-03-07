@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import BirthdayPicker from "./src/component/BirthdayPicker";
 //import {NavigationContainer} from "@react-navigation/native";
 import LoginScreen from "./src/screens/LoginScreen";
 import SetupScreen from "./src/screens/SetupScreen";
@@ -11,6 +12,7 @@ export default function App() {
       <Text>Hey Jason, Jordan and Santi</Text>
       {/* <LoginScreen></LoginScreen> */}
       <SetupScreen></SetupScreen>
+      {/* <BirthdayPicker></BirthdayPicker> */}
       <StatusBar style="auto" />
     </View>
     
