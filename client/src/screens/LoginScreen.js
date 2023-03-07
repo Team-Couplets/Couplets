@@ -41,7 +41,7 @@ const LoginScreen = () => {
     const styles = StyleSheet.create({
       inputBox: {
         height: 50,
-        width: 300,
+        width: 280,
         margin: 5,
         borderRadius: 5,
         backgroundColor: "#ededed",
