@@ -10,10 +10,10 @@ app.use(express.urlencoded());
 app.use(cors());
 app.use(express.static("client/assets"));
 
-// const apiRouter = require(__dirname + '/routes/api.js');
+const apiRouter = require(__dirname + '/routes/api.js');
 const authRouter = require(__dirname + '/routes/auth.js');
 
-// app.use('/api', apiRouter);
+app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 
 app.use("*", (req, res) => {

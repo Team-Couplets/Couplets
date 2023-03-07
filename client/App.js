@@ -2,9 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
 import * as SecureStore from 'expo-secure-store';
 import Main from "./components/Main";
+import Homepage from "./components/Homepage";
 
 export default function App() {
   //state to check user's device supports apple oauth
@@ -42,15 +42,7 @@ export default function App() {
       />;
     }
     else {
-      //if token exists decode the identity token
-      const decoded = jwtDecode(userToken.identityToken);
-      const current = Date.now() / 1000;
-      return (
-        <View>
-          <Button title="Logout" onPress={logout} />
-          <Main />
-        </View>
-      )
+      return <Main />;
     }
   }
 
@@ -63,15 +55,15 @@ export default function App() {
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
         ],
       });
-      // console.log(credential)
-      // const data = await fetch('http://localhost:3000/auth/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(credential),
-      // })
-      //set the userToken state to jwttoken
+      console.log(credential)
+      const data = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credential),
+      })
+      // set the userToken state to jwttoken
       setUserToken(credential);
       //saves the jwttoken to the secure store
       SecureStore.setItemAsync('apple-credentials', JSON.stringify(credential))
