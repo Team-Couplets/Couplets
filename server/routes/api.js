@@ -10,6 +10,10 @@ router.post('/user/setup', userController.setupUser, (req, res, next) => {
   res.status(200).json(res.locals.users);
 });
 
+router.get('/user/get', userController.getUser, (req, res, next) => {
+  res.status(200).json(res.locals.users);
+});
+
 router.get('/user/poems', userController.getPoems, (req, res, next) => {
   res.status(200).json(res.locals.poems);
 });

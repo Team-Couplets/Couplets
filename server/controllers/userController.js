@@ -57,6 +57,19 @@ userController.setupUser = (req, res, next) => {
   });
 }
 
+userController.getUser = (req, res, next) => {
+  const email = req.body.email;
+  db.query("SELECT * from users WHERE email = $1", [email], (err, response) => {
+    if (err) next({
+      log: 'Error with setupUser - unable to add data from db',
+      status: 400,
+      message: {err: 'Error with setupUser'},
+    });
+    res.locals.users = response.rows;
+    return next();
+  });
+}
+
 userController.addPoems = (req, res, next) => {
   console.log('addPoems triggered');
   const poem1 = req.body.poem1;
