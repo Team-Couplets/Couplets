@@ -1,4 +1,8 @@
 import { StyleSheet, Text, View, Image } from "react-native";
+import { Dimensions } from "react-native";
+
+const width = Dimensions.get('window').width; //full width
+const height = Dimensions.get('window').height; //full height
 
 function Homepage() {
   return (
@@ -35,8 +39,8 @@ export default Homepage;
 const styles = StyleSheet.create({
   homepage: {
     flex: 1,
-    height: "100%",
-    width: "100%",
+    height: height,
+    width: width,
     backgroundColor: "#666f80",
     alignItems: "center",
     justifyContent: "center",
