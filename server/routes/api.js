@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/userController');
 
-router.get('/', (req, res, next) => {
-  res.status(200).json('api router hit successfully');
+router.get('/', userController.getUsersTable, (req, res) => {
+  res.status(200).json(res.locals.users);
 });
 
 module.exports = router;
