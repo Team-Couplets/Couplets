@@ -39,12 +39,13 @@ userController.userSignUp = (req, res, next) => {
 }
 
 userController.setupUser = (req, res, next) => {
-  const pName = req.body.penName;
-  const fName = req.body.firstName;
-  const lName = req.body.lastName;
-  const location = req.body.location;
-  const bio = req.body.bio;
-  const email = req.body.email;
+  const body = req.body.formBody;
+  const pName = body.penName;
+  const fName = body.firstName;
+  const lName = body.lastName;
+  const location = body.location;
+  const bio = body.bio;
+  const email = body.email;
   console.log(pName, fName, lName, location, email);
   db.query("UPDATE users SET penName = $1, firstName = $2, lastName = $3, location = $4, bio = $5 WHERE email = $6", [pName, fName, lName, location, bio, email], (err, response) => {
     if (err) next({
@@ -72,10 +73,11 @@ userController.getUser = (req, res, next) => {
 
 userController.addPoems = (req, res, next) => {
   console.log('addPoems triggered');
-  const poem1 = req.body.poem1;
-  const poem2 = req.body.poem2;
-  const poem3 = req.body.poem3;
-  const email = req.body.email.toLowerCase();
+  const body = req.body.formBody;
+  const poem1 = body.poem1;
+  const poem2 = body.poem2;
+  const poem3 = body.poem3;
+  const email = body.email.toLowerCase();
   db.query("UPDATE users SET poem1 = $1, poem2 = $2, poem3 = $3 WHERE email = $4", [poem1, poem2, poem3, email], (err, response) => {
     if (err) next({
       log: 'Error with addPoems - unable to add data from db',
