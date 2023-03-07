@@ -1,24 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button} from "react-native";
+import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button, Alert} from "react-native";
 
 //This is the setup for sign up screen
-const RegisterScreen = () => {
+const SetupScreen = () => {
     const [firstName, onChangeFirstName] = React.useState('');
     const [lastName, onChangeLastName] = React.useState('');
 
   return(
     <SafeAreaView>
       <ScrollView>
-        <Text>Register Screen</Text>
+        <Text>Setup Screen</Text>
         <TextInput style={styles.inputBox} label = "firstName" value={firstName} onChangeText={onChangeFirstName} placeholder="First Name"/>
         <TextInput style={styles.inputBox} label = "lastName" value={lastName} onChangeText={onChangeLastName} placeholder="Last Name"/>
-        <TextInput style={styles.inputBox} label = "email" keyboardType='email-address' placeholder="Email"/>
-        <TextInput style={styles.inputBox} label = "password" secureTextEntry={true} placeholder="Password"/>
-        <TextInput style={styles.inputBox} label = "confirmPassword" secureTextEntry={true} placeholder="Confirm Password"/>
-        <TextInput style={styles.inputBox} label = "phoneNumber" keyboardType='phone-pad' placeholder="Phone Number"/>
+        
         <Button onPress={() => Alert.alert('Register button pressed')}
             style={styles.registerBtn}
-            title="REGISTER"></Button>
+            title="LOOKS GOOD!"></Button>
       </ScrollView>
   </SafeAreaView>
 
@@ -35,4 +32,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RegisterScreen;
+export default SetupScreen;
