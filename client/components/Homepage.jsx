@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Dimensions } from "react-native";
 import CardSlider from "./CardSlider";
-import poems from "../poems";
+// import poems from "../poems";
 
 const width = Dimensions.get("window").width; //full width
 const height = Dimensions.get("window").height; //full height
@@ -22,14 +22,14 @@ function Homepage() {
     });
   }
 
-  // const [poems, setPoems] = useState([]);
+  const [poems, setPoems] = useState([""]);
   const [index, setIndex] = useState(0);
 
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/api/feed")
-  //     .then((response) => response.json())
-  //     .then((data) => setPoems(data));
-  // }, []);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/feed")
+      .then((response) => response.json())
+      .then((data) => setPoems(data));
+  }, []);
 
   return (
     <View style={styles.homepage}>

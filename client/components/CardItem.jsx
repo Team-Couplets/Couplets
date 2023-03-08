@@ -3,7 +3,7 @@ import { useWindowDimensions } from "react-native";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 
 export default CardItem = ({ item, keyval }) => {
-  if (keyval !== "email") {
+  if (keyval !== "email" && item !== null) {
     return (
       <ScrollView>
         <View style={styles.container}>
