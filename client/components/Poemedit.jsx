@@ -8,10 +8,6 @@ const PoemEdit = (props) => {
 
     const [ text, onChangeText ] = useState(props.poem);
 
-    useEffect(() => {
-        console.log('index is: ' + props.index)
-    }, [])
-
     //save poem into db
     const savePoem = () => {
         const body = {email: props.email};
