@@ -92,7 +92,7 @@ userController.addPoems = (req, res, next) => {
 
 userController.getPoems = (req, res, next) => {
   console.log('getPoems triggered');
-  const email = req.bodyformBody.email;
+  const email = req.body.formBody.email;
   sqlDB.query('SELECT poem1, poem2, poem3 FROM users WHERE email = $1', [email.toLowerCase()], (err, response) => {
     if (err) next({
       log: 'Error with getPoems - unable to add data from sqlDB',
