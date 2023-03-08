@@ -1,28 +1,56 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useState, Fragment } from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
 
 import Homepage from "./Homepage";
 import Message from "./Message";
 import Profile from "./Profile";
 import NavBar from "./NavBar";
+import Header from "./Header";
+import ChatBox from "./ChatBox";
 
-export default function App() {
+export default function App(props) {
   const [displayHomepage, setDisplayHomepage] = useState(true);
   const [displayProfile, setDisplayProfile] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
+  const [displayChatBox, setDisplayChatBox] = useState(false);
 
   return (
-    <View>
-      {displayHomepage && <Homepage></Homepage>}
-      {displayProfile && <Profile></Profile>}
-      {displayMessage && <Message></Message>}
-      <NavBar
-        setDisplayHomepage={setDisplayHomepage}
-        setDisplayProfile={setDisplayProfile}
-        setDisplayMessage={setDisplayMessage}
-      ></NavBar>
-      <StatusBar style="auto" />
-    </View>
+    <Fragment>
+      <SafeAreaView
+        edges={["top"]}
+        style={{ flex: 0, backgroundColor: "white" }}
+      />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: "#f2f2f2",
+          position: "relative",
+        }}
+      >
+        <Header logout={props.logout}></Header>
+        {displayHomepage && <Homepage></Homepage>}
+        {displayProfile && <Profile></Profile>}
+        {displayMessage && !displayChatBox && (
+          <Message setDisplayChatBox={setDisplayChatBox}></Message>
+        )}
+        {displayChatBox && (
+          <ChatBox setDisplayChatBox={setDisplayChatBox}></ChatBox>
+        )}
+        <NavBar
+          setDisplayHomepage={setDisplayHomepage}
+          setDisplayProfile={setDisplayProfile}
+          setDisplayMessage={setDisplayMessage}
+        ></NavBar>
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </Fragment>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 0,
+    backgroundColor: "#f2f2f2",
+  },
+});

@@ -3,32 +3,31 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   Dimensions,
+  Button,
   FlatList,
 } from "react-native";
-import MessageItem from "./MessageItem";
+import ChatItem from "./ChatItem";
 import messageData from "../messagesData";
 
 const width = Dimensions.get("window").width; //full width
 const height = Dimensions.get("window").height; //full height
 
-function Message(props) {
+function ChatBox(props) {
+  function displayHandler() {
+    props.setDisplayChatBox(false);
+  }
+
   return (
-    <View style={styles.homepage}>
-      <View>
-        <Text style={styles.text}>Matches</Text>
+    <View>
+      <Button onPress={displayHandler} title="Back" />
+      <View style={styles.homepage}>
+        <FlatList
+          data={messageData}
+          renderItem={({ item }) => <ChatItem item={item} />}
+          bounces={false}
+        />
       </View>
-      <FlatList
-        data={messageData}
-        renderItem={({ item }) => (
-          <MessageItem
-            setDisplayChatBox={props.setDisplayChatBox}
-            item={item}
-          />
-        )}
-        bounces={false}
-      />
     </View>
   );
 }
@@ -42,11 +41,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text: {
-    fontSize: 25,
-    fontWeight: 700,
-    color: "#46BCEC",
-  },
 });
 
-export default Message;
+export default ChatBox;
