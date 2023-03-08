@@ -5,9 +5,9 @@ const userController = {};
 
 userController.getUsersTable = (req, res, next) => {
   console.log('getUsers triggered');
-  sqlsqlDB.query('select * from Users', (err, response) => {
+  sqlDB.query('select * from Users', (err, response) => {
     if (err) return next({
-      log: 'Error with getUsers - unable to grab data from sqlsqlDB',
+      log: 'Error with getUsers - unable to grab data from sqlDB',
       status: 400,
       message: {err: 'Error with getUsers'},
     });
@@ -19,17 +19,17 @@ userController.getUsersTable = (req, res, next) => {
 userController.userSignUp = (req, res, next) => {
   const userQuery = 'SELECT * FROM Users WHERE email = $1'
   const value = [res.locals.email.toLowerCase()];
-  sqlsqlDB.query(userQuery, value, (err, response) => {
+  sqlDB.query(userQuery, value, (err, response) => {
     if (err) return next ({
-      log: 'Error with userSignUp - unable to grab data from sqlsqlDB',
+      log: 'Error with userSignUp - unable to grab data from sqlDB',
       status: 400,
       message: {err: 'Error with userSignUp'},
     })
     if (response.rowCount < 1) {
       const newUserQuery = 'INSERT INTO Users (email) VALUES ($1)';
-      sqlsqlDB.query(newUserQuery, value, (err, response) => {
+      sqlDB.query(newUserQuery, value, (err, response) => {
         if (err) return next ({
-          log: 'Error with userSignUp - unable to store user to sqlsqlDB',
+          log: 'Error with userSignUp - unable to store user to sqlDB',
           status: 400,
           message: {err: 'Error with userSignUp'},
         })
@@ -48,7 +48,7 @@ userController.setupUser = (req, res, next) => {
   const bio = body.bio;
   const email = body.email;
   console.log(pName, fName, lName, location, email);
-  sqlDB.query("UPDATE users SET penName = $1, firstName = $2, lastName = $3, location = $4, bio = $5 WHERE email = $6", [pName, fName, lName, location, bio, email], (err, response) => {
+  sqlDB.query("UPDATE users SET penName = $1, firstName = $2, lastName = $3, location = $4, bio = $5, setup = TRUE WHERE email = $6", [pName, fName, lName, location, bio, email], (err, response) => {
     if (err) next({
       log: 'Error with setupUser - unable to add data from sqlDB',
       status: 400,
@@ -103,5 +103,23 @@ userController.getPoems = (req, res, next) => {
     return next();
   });
 }
+
+userController.getFeed = (req, res, next) => {
+  console.log('getFeed triggered');
+  sqlDB.query('SELECT email, poem1, poem2, poem3 FROM users', (err, response) => {
+    if (err) next({
+      log: 'Error with getPoems - unable to add data from sqlDB',
+      status: 400,
+      message: {err: 'Error with getPoems'},
+    });
+    console.log(response.rows);
+    res.locals.feed = response.rows;
+    return next();
+  });
+}
+
+// userController.addLike = (req, res, next) => {
+//   console.log('addLike triggered');
+// }
 
 module.exports = userController;
