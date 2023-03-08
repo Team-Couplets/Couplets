@@ -23,6 +23,8 @@ router.post('/user/poems', userController.addPoems, (req, res, next) => {
   res.status(200).json(res.locals.poems);
 });
 
+router.get('/api/feed', )
+
 //for testing
 // router.post('/user/create', userController.userSignUp, (req, res, next) => {
 //   res.status(200).json("this ran fully");

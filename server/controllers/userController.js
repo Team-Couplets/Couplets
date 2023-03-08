@@ -48,7 +48,7 @@ userController.setupUser = (req, res, next) => {
   const bio = body.bio;
   const email = body.email;
   console.log(pName, fName, lName, location, email);
-  sqlDB.query("UPDATE users SET penName = $1, firstName = $2, lastName = $3, location = $4, bio = $5 WHERE email = $6", [pName, fName, lName, location, bio, email], (err, response) => {
+  sqlDB.query("UPDATE users SET penName = $1, firstName = $2, lastName = $3, location = $4, bio = $5, setup = TRUE WHERE email = $6", [pName, fName, lName, location, bio, email], (err, response) => {
     if (err) next({
       log: 'Error with setupUser - unable to add data from sqlDB',
       status: 400,
@@ -103,5 +103,7 @@ userController.getPoems = (req, res, next) => {
     return next();
   });
 }
+
+// userController.getFeed = 
 
 module.exports = userController;
