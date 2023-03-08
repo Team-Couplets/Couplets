@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 
 import Homepage from "./Homepage";
@@ -30,7 +30,7 @@ export default function App(props) {
       >
         <Header logout={props.logout}></Header>
         {displayHomepage && <Homepage></Homepage>}
-        {displayProfile && <Profile></Profile>}
+        {displayProfile && <Profile email={props.email}></Profile>}
         {displayMessage && !displayChatBox && (
           <Message setDisplayChatBox={setDisplayChatBox}></Message>
         )}

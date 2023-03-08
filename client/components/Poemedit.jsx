@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const width = Dimensions.get("window").width; //full width
 const height = Dimensions.get("window").height; //full height
@@ -15,37 +15,37 @@ const height = Dimensions.get("window").height; //full height
 const PoemEdit = (props) => {
   const [text, onChangeText] = useState(props.poem);
 
+  //save poem into db
   const savePoem = () => {
-    // const body = {};
-    // if (!props.key) {
-    //   let i = 0;
-    //   for (; i < props.poems.length; i++) {
-    //     body[`poem${i + 1}`] = props.poems[i];
-    //   }
-    //   body[`poem${i + 1}`] = text;
-    //   i++;
-    //   while (i < 4) {
-    //     body[`poem${i + 1}`] = "";
-    //     i++;
-    //   }
-    // } else {
-    //   let i = 0;
-    //   for (; i < 4; i++) {
-    //     if (props.key === i) body[`poem${i + 1}`] = text;
-    //     else body[`poem${i + 1}`] = props.poems[i];
-    //     if (i > props.poems.length - 1) body[`poem${i + 1}`] = "";
-    //   }
-    // }
-    // for (let key in props.obj){
-    //   if props.obj[key] === text
-    // }
-    // fetch("http://localhost:3000/api/user/poems", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ text }),
-    // });
+    const body = { email: props.email };
+    if (props.index === -1) {
+      let i = 0;
+      for (; i < props.poems.length; i++) {
+        body[`poem${i + 1}`] = props.poems[i];
+      }
+      body[`poem${i + 1}`] = text;
+      i++;
+      while (i < 3) {
+        body[`poem${i + 1}`] = "";
+        i++;
+      }
+    } else {
+      let i = 0;
+      for (; i < 3; i++) {
+        if (props.index === i + 1) body[`poem${i + 1}`] = text;
+        else body[`poem${i + 1}`] = props.poems[i];
+        if (i > props.poems.length - 1) body[`poem${i + 1}`] = "";
+      }
+    }
+    console.log(body);
+    fetch("http://localhost:3000/api/user/poems", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ formBody: body }),
+    });
+    props.goBack(0);
   };
 
   return (
