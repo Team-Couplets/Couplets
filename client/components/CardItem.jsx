@@ -3,8 +3,6 @@ import { useWindowDimensions } from "react-native";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 
 export default CardItem = ({ item }) => {
-  const { width } = useWindowDimensions();
-
   return (
     <ScrollView>
       <View style={styles.container}>

@@ -1,19 +1,19 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 function NavBar(props) {
-  function message() {
+  function messageHandler() {
     props.setDisplayMessage(true);
     props.setDisplayHomepage(false);
     props.setDisplayProfile(false);
   }
 
-  function homepage() {
+  function homepageHandler() {
     props.setDisplayMessage(false);
     props.setDisplayHomepage(true);
     props.setDisplayProfile(false);
   }
 
-  function profile() {
+  function profileHandler() {
     props.setDisplayMessage(false);
     props.setDisplayHomepage(false);
     props.setDisplayProfile(true);
@@ -22,7 +22,7 @@ function NavBar(props) {
   return (
     <View style={styles.navbar}>
       <View style={styles.navitem}>
-        <TouchableOpacity onPress={message}>
+        <TouchableOpacity onPress={messageHandler}>
           <Image
             style={styles.navLogo}
             source={require("../assets/message.png")}
@@ -31,7 +31,7 @@ function NavBar(props) {
       </View>
 
       <View style={styles.navitem}>
-        <TouchableOpacity onPress={homepage}>
+        <TouchableOpacity onPress={homepageHandler}>
           <Image
             style={styles.navLogo}
             source={require("../assets/home.png")}
@@ -40,7 +40,7 @@ function NavBar(props) {
       </View>
 
       <View style={styles.navitem}>
-        <TouchableOpacity onPress={profile}>
+        <TouchableOpacity onPress={profileHandler}>
           <Image
             style={styles.navLogo}
             source={require("../assets/profile.png")}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button, Alert, Image} from "react-native";
-import Main from "./Main"
 
 //This is the setup for sign up screen
 export default function SetupPage () {

@@ -7,20 +7,21 @@ import Message from "./Message";
 import Profile from "./Profile";
 import NavBar from "./NavBar";
 import Header from "./Header";
+import ChatBox from "./ChatBox";
 
 export default function App(props) {
   const [displayHomepage, setDisplayHomepage] = useState(true);
   const [displayProfile, setDisplayProfile] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
+  const [displayChatBox, setDisplayChatBox] = useState(false);
 
   return (
     <Fragment>
       <SafeAreaView
         edges={["top"]}
-        style={{ flex: 0, backgroundColor: "blue" }}
+        style={{ flex: 0, backgroundColor: "white" }}
       />
       <SafeAreaView
-        edges={["left", "right", "bottom"]}
         style={{
           flex: 1,
           backgroundColor: "#f2f2f2",
@@ -30,7 +31,12 @@ export default function App(props) {
         <Header logout={props.logout}></Header>
         {displayHomepage && <Homepage></Homepage>}
         {displayProfile && <Profile></Profile>}
-        {displayMessage && <Message></Message>}
+        {displayMessage && !displayChatBox && (
+          <Message setDisplayChatBox={setDisplayChatBox}></Message>
+        )}
+        {displayChatBox && (
+          <ChatBox setDisplayChatBox={setDisplayChatBox}></ChatBox>
+        )}
         <NavBar
           setDisplayHomepage={setDisplayHomepage}
           setDisplayProfile={setDisplayProfile}
@@ -45,6 +51,6 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 0,
-    backgroundColor: "#666f80",
+    backgroundColor: "#f2f2f2",
   },
 });
