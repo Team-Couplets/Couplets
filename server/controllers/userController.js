@@ -19,7 +19,7 @@ userController.getUsersTable = (req, res, next) => {
 userController.userSignUp = (req, res, next) => {
   const userQuery = 'SELECT * FROM Users WHERE email = $1'
   const value = [res.locals.email.toLowerCase()];
-  sqlsqlDB.query(userQuery, value, (err, response) => {
+  sqlDB.query(userQuery, value, (err, response) => {
     if (err) return next ({
       log: 'Error with userSignUp - unable to grab data from sqlsqlDB',
       status: 400,
@@ -27,13 +27,16 @@ userController.userSignUp = (req, res, next) => {
     })
     if (response.rowCount < 1) {
       const newUserQuery = 'INSERT INTO Users (email) VALUES ($1)';
-      sqlsqlDB.query(newUserQuery, value, (err, response) => {
+      sqlDB.query(newUserQuery, value, (err, response) => {
         if (err) return next ({
           log: 'Error with userSignUp - unable to store user to sqlsqlDB',
           status: 400,
           message: {err: 'Error with userSignUp'},
         })
       })
+    }
+    else {
+      return next();
     }
   });
   return next();
@@ -92,7 +95,7 @@ userController.addPoems = (req, res, next) => {
 
 userController.getPoems = (req, res, next) => {
   console.log('getPoems triggered');
-  const email = req.body.formBody.email;
+  const { email } = req.query;
   sqlDB.query('SELECT poem1, poem2, poem3 FROM users WHERE email = $1', [email.toLowerCase()], (err, response) => {
     if (err) next({
       log: 'Error with getPoems - unable to add data from sqlDB',

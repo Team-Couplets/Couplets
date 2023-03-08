@@ -5,7 +5,7 @@ const userController = require('../controllers/userController');
 
 //post request to /auth/login to verify token
 router.post('/login', authController.verifyJWT, userController.userSignUp, (req, res) => {
-    res.json(res.locals.email);
+    return res.status(200).json(res.locals.email);
 })
 
 module.exports = router;
