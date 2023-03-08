@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 import * as AppleAuthentication from "expo-apple-authentication";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
@@ -37,13 +37,19 @@ export default function App() {
     if (!userToken) {
       //built in styling for apple button
       return (
-        <AppleAuthentication.AppleAuthenticationButton
-          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-          cornerRadius={5}
-          style={styles.button}
-          onPress={login}
-        />
+        <>
+          <Image
+            style={styles.mainLogo}
+            source={require('./assets/logo.png')}
+          />
+          <AppleAuthentication.AppleAuthenticationButton
+            buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+            cornerRadius={5}
+            style={styles.button}
+            onPress={login}
+          />
+        </>
       );
     } else {
       return <Main logout={logout} email={userEmail}/>;
@@ -107,4 +113,8 @@ const styles = StyleSheet.create({
     width: 240,
     height: 57,
   },
+  mainLogo: {
+    width: 350,
+    resizeMode: "contain",
+  }
 });

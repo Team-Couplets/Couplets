@@ -79,12 +79,13 @@ const styles = StyleSheet.create({
   profile: {
     height: height,
     width: width,
-    backgroundColor: "#666f80",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
   },
   header: {
+    color: "#46BCEC",
     fontSize: 30,
   },
   input: {
@@ -94,17 +95,21 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    borderRadius: 10,
+    fontSize: 25,
   },
   text: {
     fontSize: 20,
   },
   saveButton: {
     color: "black",
-    backgroundColor: "#FB6D6C",
+    backgroundColor: "#46BCEC",
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
     margin: 10,
+    fontSize: 15,
+    borderRadius: 10,
   },
   cancelButton: {
     color: "black",
@@ -113,6 +118,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     margin: 10,
+    borderRadius: 10,
   },
   buttonContainer: {
     flexDirection: "row",

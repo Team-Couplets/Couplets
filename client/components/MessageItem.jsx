@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 30,
+    fontWeight: "bold",
+    color: "#46BCEC",
     lineHeight: 30,
   },
   photo: {

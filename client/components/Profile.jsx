@@ -91,7 +91,7 @@ function Profile(props) {
           {boxes}
         </View>
         <View>
-          <Text>Pen Name: </Text>
+          <Text style={styles.input}>Pen Name: </Text>
           <View style={styles.textBox}>
             <TextInput
               editable
@@ -102,7 +102,7 @@ function Profile(props) {
           </View>
         </View>
         <View>
-          <Text>First Name: </Text>
+          <Text style={styles.input}>First Name: </Text>
           <View style={styles.textBox}>
             <TextInput
               editable
@@ -113,7 +113,7 @@ function Profile(props) {
           </View>
         </View>
         <View>
-          <Text>Last Name: </Text>
+          <Text style={styles.input}>Last Name: </Text>
           <View style={styles.textBox}>
             <TextInput
               editable
@@ -124,7 +124,7 @@ function Profile(props) {
           </View>
         </View>
         <View>
-          <Text>Birthday: </Text>
+          <Text style={styles.input}>Birthday: </Text>
           <View style={styles.textBox}>
             <TextInput
               editable
@@ -135,7 +135,7 @@ function Profile(props) {
           </View>
         </View>
         <View>
-          <Text>Bio: </Text>
+          <Text style={styles.input}>Bio: </Text>
           <View style={styles.textBox}>
             <TextInput
               editable
@@ -146,7 +146,7 @@ function Profile(props) {
           </View>
         </View>
         <View>
-          <Text>Location: </Text>
+          <Text style={styles.input}>Location: </Text>
           <View style={styles.textBox}>
             <TextInput
               editable
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 2, // the number of columns you want to divide the screen into
     marginHorizontal: "auto",
+    marginTop: 0 - (height * 0.05),
   },
   row: {
     flexDirection: "row",
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   poemContainer: {
-    backgroundColor: "#C3C8D3",
+    backgroundColor: "#e6e8eb",
     minWidth: width / 4,
     minHeight: width / 4,
     maxHeight: width / 4,
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
     color: "#46BCEC",
   },
   textBox: {
-    backgroundColor: "#C3C8D3",
+    backgroundColor: "#e6e8eb",
     width: width - 40,
     padding: 10,
     marginTop: 15,
@@ -218,7 +219,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 10,
+    borderRadius: 10,
   },
+  input: {
+    fontSize: 20,
+  }
 });
 
 export default Profile;

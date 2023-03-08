@@ -16,9 +16,6 @@ const height = Dimensions.get("window").height; //full height
 function Message(props) {
   return (
     <View style={styles.homepage}>
-      <View>
-        <Text style={styles.text}>Matches</Text>
-      </View>
       <FlatList
         data={messageData}
         renderItem={({ item }) => (
