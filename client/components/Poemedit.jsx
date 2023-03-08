@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Dimensions, TouchableHighlight, TouchableOpacity } from "react-native";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const width = Dimensions.get('window').width; //full width
 const height = Dimensions.get('window').height; //full height
@@ -7,6 +7,44 @@ const height = Dimensions.get('window').height; //full height
 const PoemEdit = (props) => {
 
     const [ text, onChangeText ] = useState(props.poem);
+
+    useEffect(() => {
+        console.log('index is: ' + props.index)
+    }, [])
+
+    //save poem into db
+    const savePoem = () => {
+        const body = {email: props.email};
+        if (props.index === -1) {
+            let i = 0;
+            for (; i < props.poems.length; i++) {
+                body[`poem${i + 1}`] = props.poems[i];
+            }
+            body[`poem${i + 1}`] = text;
+            i++;
+            while (i < 3) {
+                body[`poem${i + 1}`] = "";
+                i++;
+            }
+        }
+        else {
+            let i = 0;
+            for (; i < 3; i++) {
+                if (props.index === i + 1) body[`poem${i + 1}`] = text;
+                else body[`poem${i + 1}`] = props.poems[i];
+                if (i > props.poems.length - 1) body[`poem${i + 1}`] = "";
+            }
+        }
+        console.log(body);
+        fetch('http://localhost:3000/api/user/poems', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({formBody: body})
+        })
+        props.goBack(0);
+    }
 
     return (
         <View style={styles.profile}>
@@ -20,9 +58,11 @@ const PoemEdit = (props) => {
                 value={text}
             />
             <View style={styles.buttonContainer}>
-                <View style={styles.saveButton}>
-                    <Text style={styles.text}>Save</Text>
-                </View>
+                <TouchableOpacity onPress={savePoem}>
+                    <View style={styles.saveButton}>
+                        <Text style={styles.text}>Save</Text>
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => props.goBack(0)}>
                     <View style={styles.cancelButton}>
                         <Text style={styles.text}>Cancel</Text>

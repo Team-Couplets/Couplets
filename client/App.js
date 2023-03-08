@@ -10,6 +10,8 @@ export default function App() {
   const [appleAuthAvailable, setAppleAuthAvailable] = useState(false);
   //state to save userToken
   const [userToken, setUserToken] = useState(null);
+  //state to save user's email
+  const [userEmail, setUserEmail] = useState(null);
 
   useEffect(() => {
     //function to check if user's device supports apple oauth
@@ -44,7 +46,7 @@ export default function App() {
         />
       );
     } else {
-      return <Main logout={logout} />;
+      return <Main logout={logout} email={userEmail}/>;
     }
   };
 
@@ -57,14 +59,15 @@ export default function App() {
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
         ],
       });
-      console.log(credential);
-      const data = await fetch("http://localhost:3000/auth/login", {
+      const response = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credential),
       });
+      const data = await response.json();
+      await setUserEmail(data)
       // set the userToken state to jwttoken
       setUserToken(credential);
       //saves the jwttoken to the secure store

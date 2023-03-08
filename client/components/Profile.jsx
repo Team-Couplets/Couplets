@@ -5,12 +5,9 @@ import PoemEdit from './Poemedit';
 const width = Dimensions.get('window').width; //full width
 const height = Dimensions.get('window').height; //full height
 
-function Profile() {
+function Profile(props) {
 
-  const [ poems, setPoems ] = useState([
-    'Curtains forcing their will against the wind, children sleep, exchanging dreams with seraphim. The city drags itself awake on subway straps; and I, an alarm, awake as a rumor of war, lie stretching into dawn, unasked and unheeded',
-    "I'm telling the wrong lies, they are not even useful. The right lies would at least be keys, they would open the door. The door is closed; the chairs, the tables, the steel bowl, myself shaping bread in the kitchen, wait outside it.",
-  ]);
+  const [ poems, setPoems ] = useState([]);
   const [ penName, setPenName ] = useState("Fumunda");
   const [ firstName, setFirstName ] = useState("Dan");
   const [ lastName, setLastName ] = useState("McLovin");
@@ -22,7 +19,18 @@ function Profile() {
   const [ addPoem, setAddPoem ] = useState(0);
 
   useEffect(() => {
-  }, [])
+    const getPoems = async () => {
+      const response = await fetch(`http://localhost:3000/api/user/poems?email=${props.email}`);
+      const data = await response.json();
+      
+      const cache = [];
+      for (let key in data[0]) {
+        if (data[0][key].length > 0) cache.push(data[0][key])
+      }
+      setPoems(cache);
+    }
+    getPoems();
+  }, [poems])
 
   //function passed to the PoemEdit component to chnage state
   const goBackFunc = (arg) => {
@@ -31,7 +39,7 @@ function Profile() {
 
   //box up all the poems to display edit components
   boxes = poems.map((poem, index) => {
-    return <TouchableOpacity style={styles.poemContainer} key={index} onPress={() => setAddPoem(index + 1)}>
+    return <TouchableOpacity style={styles.poemContainer} key={index} poems={poems} onPress={() => setAddPoem(index + 1)}>
               <Text style={styles.text} poem={poem}>
                 Poem {index + 1}
               </Text>
@@ -40,7 +48,7 @@ function Profile() {
 
   return (
     addPoem ? 
-    <PoemEdit goBack={goBackFunc} poem={poems[addPoem - 1]}/> :
+    <PoemEdit goBack={goBackFunc} poem={poems[addPoem - 1]} poems={poems} email={props.email} index={addPoem}/> :
     <ScrollView>
       <View style={styles.profile}>
         <Text style={styles.header}>Profile</Text>
