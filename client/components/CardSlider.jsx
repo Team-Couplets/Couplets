@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
-import poems from "../poems";
 import CardItem from "./CardItem";
 
-export default CardSlider = () => {
+export default CardSlider = (props) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={poems}
-        renderItem={({ item }) => <CardItem item={item} />}
+        data={Object.keys(props.poems)}
+        renderItem={({ item }) => (
+          <CardItem item={props.poems[item]} keyval={item} />
+        )}
         horizontal
         showsHorizontalScrollIndicator
         pagingEnabled

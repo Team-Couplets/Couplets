@@ -2,14 +2,16 @@ import React from "react";
 import { useWindowDimensions } from "react-native";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 
-export default CardItem = ({ item }) => {
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.text}>{item.poem}</Text>
-      </View>
-    </ScrollView>
-  );
+export default CardItem = ({ item, keyval }) => {
+  if (keyval !== "email") {
+    return (
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.text}>{item}</Text>
+        </View>
+      </ScrollView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
