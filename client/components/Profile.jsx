@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   profile: {
     height: height,
     width: width,
-    backgroundColor: "#666f80",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     flex: 2, // the number of columns you want to divide the screen into
@@ -161,6 +161,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 30,
+    fontWeight: "bold",
+    color: "#46BCEC"
   },
   textBox: {
     backgroundColor: "#C3C8D3",
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
   },
   button: {
     color: 'black',
-    backgroundColor: '#FB6D6C',
+    backgroundColor: '#46BCEC',
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
