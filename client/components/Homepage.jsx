@@ -1,34 +1,38 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
+import CardSlider from "./CardSlider";
 
-const width = Dimensions.get('window').width; //full width
-const height = Dimensions.get('window').height; //full height
+const width = Dimensions.get("window").width; //full width
+const height = Dimensions.get("window").height; //full height
 
 function Homepage() {
+  function dislikeHandler() {}
+  function likeHandler() {}
+
   return (
     <View style={styles.homepage}>
       <View style={styles.poemContainer}>
-        <Text style={styles.text}>
-          " Yes !" I answered you last night ; {"\n"}" No !" this morning, Sir,
-          I say {"\n"}! Colours, seen by candle-light, {"\n"} Will not look the
-          same by day. {"\n"} {"\n"} When the tabors played their best, {"\n"}
-          Lamps above, and laughs below — {"\n"}Love me sounded like a...
-        </Text>
+        <CardSlider></CardSlider>
       </View>
 
       <View style={styles.matchContainer}>
-        <View style={styles.circle}>
-          <Image
-            style={styles.navLogo}
-            source={require("../assets/reject.png")}
-          />
-        </View>
-        <View style={styles.circle}>
-          <Image
-            style={styles.navLogo}
-            source={require("../assets/snap.png")}
-          />
-        </View>
+        <TouchableOpacity onPress={dislikeHandler}>
+          <View style={styles.circle}>
+            <Image
+              style={styles.navLogo}
+              source={require("../assets/reject.png")}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={likeHandler}>
+          <View style={styles.circle}>
+            <Image
+              style={styles.navLogo}
+              source={require("../assets/snap.png")}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -41,15 +45,15 @@ const styles = StyleSheet.create({
     flex: 1,
     height: height,
     width: width,
-    backgroundColor: "#666f80",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
   poemContainer: {
-    marginTop: 150,
-    height: 600,
-    width: 400,
-    padding: 50,
+    marginTop: 20,
+    height: "90%",
+    width: "90%",
+    padding: 10,
     backgroundColor: "#C3C8D3",
     borderRadius: 15,
     alignItems: "center",
@@ -57,23 +61,20 @@ const styles = StyleSheet.create({
   matchContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: 300,
-    top: -100,
+    width: "90%",
+    top: -50,
   },
   navLogo: {
     height: 40,
     width: 40,
   },
   circle: {
-    backgroundColor: "#FB6D6C",
+    // backgroundColor: "#FB6D6C",
+    backgroundColor: "#46BCEC",
     borderRadius: "100%",
     height: 80,
     width: 80,
     justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
-    fontSize: 18,
-    lineHeight: 30,
   },
 });
