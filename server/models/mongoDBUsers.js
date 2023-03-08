@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const URI = process.env.MONGO_URI
 
-mongoose.connect(URI, () => console.log('mongoose database connected'));
+mongoose.connect(URI).then(() => console.log('mongoose database connected'));
 
 const userSchema = mongoose.Schema({
   email: {
@@ -12,6 +12,10 @@ const userSchema = mongoose.Schema({
 
   likes: {
     type: Array,
+  },
+
+  matched: {
+    type: Array
   }
 })
 

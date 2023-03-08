@@ -1,12 +1,13 @@
 const sqlDB = require('../models/users');
+const mongoDB = require('../models/mongoDBUsers');
 
 const userController = {};
 
 userController.getUsersTable = (req, res, next) => {
   console.log('getUsers triggered');
-  sqlDB.query('select * from Users', (err, response) => {
+  sqlsqlDB.query('select * from Users', (err, response) => {
     if (err) return next({
-      log: 'Error with getUsers - unable to grab data from sqlDB',
+      log: 'Error with getUsers - unable to grab data from sqlsqlDB',
       status: 400,
       message: {err: 'Error with getUsers'},
     });
@@ -18,17 +19,17 @@ userController.getUsersTable = (req, res, next) => {
 userController.userSignUp = (req, res, next) => {
   const userQuery = 'SELECT * FROM Users WHERE email = $1'
   const value = [res.locals.email.toLowerCase()];
-  sqlDB.query(userQuery, value, (err, response) => {
+  sqlsqlDB.query(userQuery, value, (err, response) => {
     if (err) return next ({
-      log: 'Error with userSignUp - unable to grab data from sqlDB',
+      log: 'Error with userSignUp - unable to grab data from sqlsqlDB',
       status: 400,
       message: {err: 'Error with userSignUp'},
     })
     if (response.rowCount < 1) {
       const newUserQuery = 'INSERT INTO Users (email) VALUES ($1)';
-      sqlDB.query(newUserQuery, value, (err, response) => {
+      sqlsqlDB.query(newUserQuery, value, (err, response) => {
         if (err) return next ({
-          log: 'Error with userSignUp - unable to store user to sqlDB',
+          log: 'Error with userSignUp - unable to store user to sqlsqlDB',
           status: 400,
           message: {err: 'Error with userSignUp'},
         })
@@ -47,9 +48,9 @@ userController.setupUser = (req, res, next) => {
   const bio = body.bio;
   const email = body.email;
   console.log(pName, fName, lName, location, email);
-  db.query("UPDATE users SET penName = $1, firstName = $2, lastName = $3, location = $4, bio = $5 WHERE email = $6", [pName, fName, lName, location, bio, email], (err, response) => {
+  sqlDB.query("UPDATE users SET penName = $1, firstName = $2, lastName = $3, location = $4, bio = $5 WHERE email = $6", [pName, fName, lName, location, bio, email], (err, response) => {
     if (err) next({
-      log: 'Error with setupUser - unable to add data from db',
+      log: 'Error with setupUser - unable to add data from sqlDB',
       status: 400,
       message: {err: 'Error with setupUser'},
     });
@@ -59,10 +60,10 @@ userController.setupUser = (req, res, next) => {
 }
 
 userController.getUser = (req, res, next) => {
-  const email = req.body.email;
-  db.query("SELECT * from users WHERE email = $1", [email], (err, response) => {
+  const email = req.body.formBody.email;
+  sqlDB.query("SELECT * from users WHERE email = $1", [email], (err, response) => {
     if (err) next({
-      log: 'Error with setupUser - unable to add data from db',
+      log: 'Error with setupUser - unable to add data from sqlDB',
       status: 400,
       message: {err: 'Error with setupUser'},
     });
@@ -78,9 +79,9 @@ userController.addPoems = (req, res, next) => {
   const poem2 = body.poem2;
   const poem3 = body.poem3;
   const email = body.email.toLowerCase();
-  db.query("UPDATE users SET poem1 = $1, poem2 = $2, poem3 = $3 WHERE email = $4", [poem1, poem2, poem3, email], (err, response) => {
+  sqlDB.query("UPDATE users SET poem1 = $1, poem2 = $2, poem3 = $3 WHERE email = $4", [poem1, poem2, poem3, email], (err, response) => {
     if (err) next({
-      log: 'Error with addPoems - unable to add data from db',
+      log: 'Error with addPoems - unable to add data from sqlDB',
       status: 400,
       message: {err: 'Error with addPoems'},
     });
@@ -91,10 +92,10 @@ userController.addPoems = (req, res, next) => {
 
 userController.getPoems = (req, res, next) => {
   console.log('getPoems triggered');
-  const email = req.body.email;
-  db.query('SELECT poem1, poem2, poem3 FROM users WHERE email = $1', [email.toLowerCase()], (err, response) => {
+  const email = req.bodyformBody.email;
+  sqlDB.query('SELECT poem1, poem2, poem3 FROM users WHERE email = $1', [email.toLowerCase()], (err, response) => {
     if (err) next({
-      log: 'Error with getPoems - unable to add data from db',
+      log: 'Error with getPoems - unable to add data from sqlDB',
       status: 400,
       message: {err: 'Error with getPoems'},
     });

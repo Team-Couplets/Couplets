@@ -15,6 +15,7 @@ router.get('/user/get', userController.getUser, (req, res, next) => {
 });
 
 router.get('/user/poems', userController.getPoems, (req, res, next) => {
+  console.log('hit finished')
   res.status(200).json(res.locals.poems);
 });
 
