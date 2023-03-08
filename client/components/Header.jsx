@@ -2,9 +2,9 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   Button,
   SafeAreaView,
+  Image,
 } from "react-native";
 
 function Header(props) {
@@ -12,7 +12,7 @@ function Header(props) {
     <SafeAreaView style={styles.safe}>
       <View style={styles.headerContainer}>
         <View style={styles.header}>
-          <Text style={styles.title}>Couplets</Text>
+          <Image style={styles.logo} source={require("../assets/logo.png")} />
         </View>
         <View style={styles.button}>
           <Button title="Logout" onPress={props.logout}></Button>
@@ -35,19 +35,21 @@ const styles = StyleSheet.create({
     right: 0,
     height: 50,
     flexDirection: "row",
-    backgroundColor: "#666f80",
+    backgroundColor: "white",
     // backgroundColor: "#f2f2f2",
     justifyContent: "space-around",
     alignItems: "center",
+    gap: 60,
   },
   header: {
     // justifyContent: "center",
     // alignItems: "center",
   },
-  title: {
-    color: "#FB6D6C",
-    fontSize: 20,
-    fontWeight: 700,
+  logo: {
+    flex: 0.9,
+    width: 180,
+    height: 180,
+    // resizeMode: "contain",
   },
   button: {
     // marginLeft: 50,
