@@ -34,6 +34,7 @@ const verifyJWT = (data, publicKey) => {
 }
 
 authController.verifyJWT = async (req, res, next) => {
+    console.log('hi, console.log here')
     //validate apple sign in
     const { identityToken, user } = req.body;
     //complete decode of jwt token (header with payload data)
