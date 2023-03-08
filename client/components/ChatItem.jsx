@@ -12,9 +12,9 @@ export default ChatItem = ({ item }) => {
   // console.log(item.messages[0].message);
   const listMessages = item.messages.map((el) => {
     return (
-      <View>
-        <Text>{el.person}</Text>
-        <Text>{el.message}</Text>
+      <View style={styles.blueBubble}>
+        {/* <Text>{el.person}</Text> */}
+        <Text style={styles.text}>{el.message}</Text>
       </View>
     );
   });
@@ -22,4 +22,14 @@ export default ChatItem = ({ item }) => {
   return <View>{listMessages}</View>;
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  blueBubble: {
+    backgroundColor: "#46BCEC",
+    borderRadius: 20,
+    margin: 10,
+    padding: 10,
+  },
+  text: {
+    fontSize: 20,
+  },
+});
