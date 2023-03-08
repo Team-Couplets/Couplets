@@ -1,9 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button} from "react-native";
+import { StyleSheet, Text, View, Image} from "react-native";
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useEffect, useState } from "react";
 import * as SecureStore from 'expo-secure-store';
 import Main from "./Main";
+import LoginPage from "./LoginPage";
+import SetupPage from "./SetupPage";
 
 export default function Oauth() {
   //state to check user's device supports apple oauth
@@ -32,16 +34,26 @@ export default function Oauth() {
     //if no userToken in state show the button
     if (!userToken) {
       //built in styling for apple button
-      return <AppleAuthentication.AppleAuthenticationButton
+      return (
+      <View>
+        <Image
+        style={styles.mainLogo}
+        source={require("../assets/logo.png")}
+      /> 
+      <LoginPage />
+      <AppleAuthentication.AppleAuthenticationButton
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
         cornerRadius={5}
         style={styles.button}
         onPress={login}
-      />;
+      />
+      </View>
+      );
     }
     else {
-      return <Main />;
+      return <SetupPage />;
+      // return <Main logout={logout}/>;
     }
   }
 
@@ -73,14 +85,13 @@ export default function Oauth() {
   }
 
   //logout function
-  const logout = async () => {
-    SecureStore.deleteItemAsync('apple-credentials');
-    setUserToken(null);
+  const logout = async (arg) => {
+    setUserToken(arg);
   }
 
   //rendering the app based on authenication
   return (
-    <View style={styles.container}>    
+    <View style={styles.container}>
       {
         appleAuthAvailable 
         ? getAppleAuthContent()
@@ -102,5 +113,9 @@ const styles = StyleSheet.create({
     button: {
       width: 240,
       height: 57
+    },
+    mainLogo: {
+      width: 350,
+      resizeMode: "contain",
     }
   });

@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button, Alert} from "react-native";
+import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button, Alert, Image} from "react-native";
+import Main from "./Main"
 
 //This is the setup for sign up screen
 export default function SetupPage () {
-    const [penName, onChangePenName] = React.useState('');
-    const [firstName, onChangeFirstName] = React.useState('');
-    const [lastName, onChangeLastName] = React.useState('');
-    const [location, onChangeLocation] = React.useState('');
-    const [bio, onChangeBio] = React.useState('');
+    const [penName, setPenName] = React.useState('');
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
+    const [location, setLocation] = React.useState('');
+    const [bio, setBio] = React.useState('');
 
     const submitForm = async () => {
       const formBody = {
@@ -26,35 +27,40 @@ export default function SetupPage () {
         },
         body: JSON.stringify({formBody: formBody}),
       })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((response) => {
-        console.log(response)
-        if(response === 'success') {
-          penName = '';
-          firstName = '';
-          lastName = '';
-          location = '';
-          bio = '';
+        console.log(response);
+        if(response) {
+          setPenName('');
+          setFirstName('');
+          setLastName ('');
+          setLocation ('');
+          setBio ('');
         }
       })
+      .catch((err) => console.log(`error from the server ${err}`))
     }
+
 
   return(
     <SafeAreaView>
-      <ScrollView>   
+      <View>
+        <Image
+        style={styles.mainLogo}
+        source={require("../assets/logo.png")}
+      /> 
+      </View>
         <Text>Setup Screen</Text>
-        <TextInput style={styles.inputBox} label = "penName" value={penName} onChangeText={onChangePenName} placeholder="Pen Name"/>
-        <TextInput style={styles.inputBox} label = "firstName" value={firstName} onChangeText={onChangeFirstName} placeholder="First Name"/>
-        <TextInput style={styles.inputBox} label = "lastName" value={lastName} onChangeText={onChangeLastName} placeholder="Last Name"/>
-        <TextInput style={styles.inputBox} lable = "location" value={location} onChangeText={onChangeLocation} placeholder="location" maxLength={30}/>
-        <TextInput style={styles.largeTextBox} lable = "bioText" value={bio} onChangeText={onChangeBio} placeholder="Bio" maxLength={255} multiline = {true}/>
+        <TextInput style={styles.inputBox} label = "penName" value={penName} onChangeText={setPenName} placeholder="Pen Name"/>
+        <TextInput style={styles.inputBox} label = "firstName" value={firstName} onChangeText={setFirstName} placeholder="First Name"/>
+        <TextInput style={styles.inputBox} label = "lastName" value={lastName} onChangeText={setLastName} placeholder="Last Name"/>
+        <TextInput style={styles.inputBox} lable = "location" value={location} onChangeText={setLocation} placeholder="location" maxLength={30}/>
+        <TextInput style={styles.largeTextBox} lable = "bioText" value={bio} onChangeText={setBio} placeholder="Bio" maxLength={255} multiline = {true}/>
 
         <Button type="Sumbit" onPress={submitForm}
             style={styles.setupBtn}
             title="LOOKS GOOD, SAVE!"></Button>
-        
-      </ScrollView>
-  </SafeAreaView>
+      </SafeAreaView>
     
 )}
 
@@ -74,5 +80,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#ededed",
     padding: 10
+  },
+  mainLogo: {
+    width: 350,
+    resizeMode: "contain",
   }
+
 });

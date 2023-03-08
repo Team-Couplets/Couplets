@@ -6,8 +6,17 @@ import {
   Button,
   SafeAreaView,
 } from "react-native";
+import * as SecureStore from 'expo-secure-store';
+
 
 function Header(props) {
+
+  //logout function
+  const logout = async () => {
+    SecureStore.deleteItemAsync('apple-credentials');
+    props.logout(null)
+  }
+
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.headerContainer}>
@@ -15,7 +24,7 @@ function Header(props) {
           <Text style={styles.title}>Couplets</Text>
         </View>
         <View style={styles.button}>
-          <Button title="Logout" onPress={props.logout}></Button>
+          <Button title="Logout" onPress={logout}></Button>
         </View>
       </View>
     </SafeAreaView>
