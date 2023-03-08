@@ -23,9 +23,13 @@ router.post('/user/poems', userController.addPoems, (req, res, next) => {
   res.status(200).json(res.locals.poems);
 });
 
-router.get('/api/feed', getFeed, (req, res, next) => {
+router.get('/feed', userController.getFeed, (req, res, next) => {
   res.status(200).json(res.locals.feed);
 })
+
+// router.post('/like', userController.addLike, (req, res, next) => {
+//   res.status(200).json("Profile Liked");
+// })
 
 //for testing
 // router.post('/user/create', userController.userSignUp, (req, res, next) => {

@@ -104,6 +104,22 @@ userController.getPoems = (req, res, next) => {
   });
 }
 
-userController.getFeed = 
+userController.getFeed = (req, res, next) => {
+  console.log('getFeed triggered');
+  sqlDB.query('SELECT email, poem1, poem2, poem3 FROM users', (err, response) => {
+    if (err) next({
+      log: 'Error with getPoems - unable to add data from sqlDB',
+      status: 400,
+      message: {err: 'Error with getPoems'},
+    });
+    console.log(response.rows);
+    res.locals.feed = response.rows;
+    return next();
+  });
+}
+
+// userController.addLike = (req, res, next) => {
+//   console.log('addLike triggered');
+// }
 
 module.exports = userController;
