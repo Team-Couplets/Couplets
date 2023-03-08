@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button, Alert, Image} from "react-native";
+import Main from "./Main";
 
 //This is the setup for sign up screen
 export default function SetupPage () {
@@ -8,6 +9,7 @@ export default function SetupPage () {
     const [lastName, setLastName] = React.useState('');
     const [location, setLocation] = React.useState('');
     const [bio, setBio] = React.useState('');
+    const [moveOn, setMoveOn] = React.useState(false)
 
     const submitForm = async () => {
       const formBody = {
@@ -17,7 +19,6 @@ export default function SetupPage () {
         location: location,
         bio: bio
       }
-      console.log('formBody', formBody);
       //send the form information to server at the following url
       await fetch('http://localhost:3000/api/user/setup', {
         method: 'POST',
@@ -26,41 +27,60 @@ export default function SetupPage () {
         },
         body: JSON.stringify({formBody: formBody}),
       })
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if(response) {
           setPenName('');
           setFirstName('');
           setLastName ('');
           setLocation ('');
           setBio ('');
+          Alert.alert(
+            'Message',
+            'Profile Saved!',
+            [{
+              text: 'OK',
+              onPress: ()=> {setMoveOn(true)},
+              style: 'default',
+            }]);
         }
       })
       .catch((err) => console.log(`error from the server ${err}`))
     }
 
+    const renderLoginPage = () => {
+        return (
+          <SafeAreaView>
+          <View>
+            <Image
+            style={styles.mainLogo}
+            source={require("../assets/logo.png")}
+          /> 
+          </View>
+          <View style={styles.formBox}>
+            <Text>Setup Your Profile</Text>
+            <TextInput style={styles.inputBox} label = "penName" value={penName} onChangeText={setPenName} placeholder="Pen Name"/>
+            <TextInput style={styles.inputBox} label = "firstName" value={firstName} onChangeText={setFirstName} placeholder="First Name"/>
+            <TextInput style={styles.inputBox} label = "lastName" value={lastName} onChangeText={setLastName} placeholder="Last Name"/>
+            <TextInput style={styles.inputBox} lable = "location" value={location} onChangeText={setLocation} placeholder="location" maxLength={30}/>
+            <TextInput style={styles.largeTextBox} lable = "bioText" value={bio} onChangeText={setBio} placeholder="Bio" maxLength={255} multiline = {true}/>
+    
+            <Button type="Sumbit" onPress={submitForm}
+                style={styles.setupBtn}
+                title="LOOKS GOOD, SAVE!"></Button>
+            </View>
+          </SafeAreaView>
+        )
+    }
+
 
   return(
-    <SafeAreaView>
-      <View>
-        <Image
-        style={styles.mainLogo}
-        source={require("../assets/logo.png")}
-      /> 
-      </View>
-        <Text>Setup Screen</Text>
-        <TextInput style={styles.inputBox} label = "penName" value={penName} onChangeText={setPenName} placeholder="Pen Name"/>
-        <TextInput style={styles.inputBox} label = "firstName" value={firstName} onChangeText={setFirstName} placeholder="First Name"/>
-        <TextInput style={styles.inputBox} label = "lastName" value={lastName} onChangeText={setLastName} placeholder="Last Name"/>
-        <TextInput style={styles.inputBox} lable = "location" value={location} onChangeText={setLocation} placeholder="location" maxLength={30}/>
-        <TextInput style={styles.largeTextBox} lable = "bioText" value={bio} onChangeText={setBio} placeholder="Bio" maxLength={255} multiline = {true}/>
-
-        <Button type="Sumbit" onPress={submitForm}
-            style={styles.setupBtn}
-            title="LOOKS GOOD, SAVE!"></Button>
-      </SafeAreaView>
-    
+    <View style={styles.container}>
+      {
+        moveOn? <Main /> :
+      renderLoginPage()
+      }
+    </View>
 )}
 
 const styles = StyleSheet.create({
@@ -83,6 +103,11 @@ const styles = StyleSheet.create({
   mainLogo: {
     width: 350,
     resizeMode: "contain",
+  },
+  formBox: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   }
 
 });

@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image} from "react-native";
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useEffect, useState } from "react";
 import * as SecureStore from 'expo-secure-store';
-import Main from "./Main";
 import LoginPage from "./LoginPage";
 import SetupPage from "./SetupPage";
 
@@ -41,19 +40,21 @@ export default function Oauth() {
         source={require("../assets/logo.png")}
       /> 
       <LoginPage />
+      <View style={styles.buttonBox}>
       <AppleAuthentication.AppleAuthenticationButton
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-        cornerRadius={5}
         style={styles.button}
+        cornerRadius={5}
         onPress={login}
       />
+      </View>
       </View>
       );
     }
     else {
       return <SetupPage />;
-      // return <Main logout={logout}/>;
+      //return <Main logout={logout}/>;
     }
   }
 
@@ -112,7 +113,11 @@ const styles = StyleSheet.create({
     },
     button: {
       width: 240,
-      height: 57
+      height: 57,
+    },
+    buttonBox: {
+      alignItems: "center",
+      justifyContent: "center",
     },
     mainLogo: {
       width: 350,
